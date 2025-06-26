@@ -16,8 +16,9 @@
     <PackageIcon>fasmi.png</PackageIcon>
     <PackageProjectUrl>https://codeberg.org/thinkbeforecoding/fasmi</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.5.1</Version>
+    <Version>1.5.2</Version>
     <RollForward>Major</RollForward>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FileSystem.fs" />
@@ -27,7 +28,7 @@
     <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
     <None Include="paket.references" />
     <None Include="..\..\img\fasmi.png" Pack="true" PackagePath="" />
-    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
