@@ -2,11 +2,11 @@
 
 let inc x = x+1
 
-let abs x =
+let jump x =
     if x >= 0 then
         x
     else
-        -x
+        x * 3 + 2
 
 let toString (x: int) =
     x.ToString()

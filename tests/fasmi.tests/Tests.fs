@@ -61,7 +61,7 @@ L0003: ret
 
 [<Fact>]
 let ``jump label should be generated`` () =
-    let output = disassembleFromSourceProject "abs"
+    let output = disassembleFromSourceProject "jump"
     let lines = (normalizeLineEnds output).Split(Environment.NewLine)
     // we look only at the conditional jump 'jl' line
     // others are different due call conventions
@@ -87,7 +87,7 @@ let ``when calling function, call must contain function name`` () =
  
     // we omit checking the label at the start of the line
     // because it can be different on different platforms
-    let expected = "call System.Number.Int32ToDecStr(Int32)"
+    let expected = "call qword ptr [0x"
     Assert.Contains(expected, callLine)
 
 

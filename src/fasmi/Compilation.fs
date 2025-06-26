@@ -36,14 +36,12 @@ let ensureNet5Attr asmPath =
 let compile (path: string) (asmPath: string) = 
     let checker = FSharpChecker.Create(keepAssemblyContents = true)
 
-    // fin net5.0 assembly path
-    let net50Path = 
+    // find netx.0 assembly path
+    let version = System.Environment.Version
+    let netPath = 
         let  runtimeDir = System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory()
-#if NET6_0
-        IO.Path.GetFullPath(runtimeDir </> "../../../packs/Microsoft.NETCore.App.Ref/6.0.0/ref/net6.0/")
-#else
-        IO.Path.GetFullPath(runtimeDir </> "../../../packs/Microsoft.NETCore.App.Ref/5.0.0/ref/net5.0/")
-#endif
+        // IO.Path.GetFullPath(runtimeDir </> $"../../../packs/Microsoft.NETCore.App.Ref/{version}.0.0/ref/net{version}.0/")
+        IO.Path.GetFullPath(runtimeDir </> $"../../../packs/Microsoft.NETCore.App.Ref/{version}/ref/net{version.Major}.{version.Minor}/")
         
     let attrfile = ensureNet5Attr asmPath
     
@@ -58,12 +56,9 @@ let compile (path: string) (asmPath: string) =
                            "--langversion:preview"
                            "--define:NET"
                            "--define:NETCOREAPP"
-                           "--define:NET5_0"
-                           "--define:NET5_0_OR_GREATER"
-                           #if NET6_0
-                           "--define:NET6_0"
-                           "--define:NET6_0_OR_GREATER"
-                           #endif
+                           for i in 5 .. version.Major do
+                               "--define:NET{i}_0_OR_GREATER"
+                           "--define:NET{i}_0"
                            "--define:NETCOREAPP1_0_OR_GREATER"
                            "--define:NETCOREAPP1_1_OR_GREATER"
                            "--define:NETCOREAPP2_0_OR_GREATER"
@@ -72,7 +67,7 @@ let compile (path: string) (asmPath: string) =
                            "--define:NETCOREAPP3_0_OR_GREATER"
                            "--define:NETCOREAPP3_1_OR_GREATER"
                            "--optimize+"
-                           for f in IO.Directory.EnumerateFiles(net50Path,"*.dll") do
+                           for f in IO.Directory.EnumerateFiles(netPath,"*.dll") do
                                 $"-r:{f}"
                             |])
         |> Async.RunSynchronously

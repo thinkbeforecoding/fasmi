@@ -46,12 +46,29 @@ type Platform =
 type Language =
     | Asm
     | IL
+let private (|CI|_|) (x: string) (y: string) =
+    if String.Equals(x,y,StringComparison.OrdinalIgnoreCase) then
+        Some()
+    else
+        None
 
 module Platform =
     let bitness = function
         | X86 -> 32
         | X64 -> 64
 
+    let parse (input: string) =
+        match input with
+        | CI "x86" -> Ok X86
+        | CI "x64" -> Ok X64
+        | _ -> Error $"Unknown platform '{input}'"
+
+module Language =
+    let parse input =
+        match input with
+        | CI "asm" -> Ok Asm
+        | CI "il" -> Ok IL
+        | _ -> Error $"Unknown language '{input}'"
 
 /// Assembly resolver/loader
 type CustomAssemblyLoadContext(shouldShareAssembly: AssemblyName -> bool) =
@@ -98,6 +115,7 @@ let disassembleConcreteMethod (runtime: ClrRuntime) (mthinfo: MethodBase) platfo
 
         // try to find method runtime info
         let clrmth = runtime.GetMethodByHandle(uint64 (h.Value.ToInt64()))
+       
 
         if not (isNull clrmth) then
 
@@ -156,7 +174,9 @@ let outputGenericMethod (runtime: ClrRuntime) (mthinfo: MethodBase) (writer: Tex
     let clrmth = runtime.GetMethodByHandle(uint64 (h.Value.ToInt64()))
 
     writer.WriteLine $""
-    writer.WriteLine $"%s{clrmth.Signature}"
+    match clrmth with
+    | null -> ()
+    | _ -> writer.WriteLine $"%s{clrmth.Signature}"
     writer.WriteLine $"; generic method cannot be jitted. provide explicit types"
     writer.Flush()
 
@@ -169,6 +189,7 @@ let disassembleMethod runtime (mthinfo: MethodBase) platform showOpcodes writer 
 /// Attach to current process and execute given function with the runtime information
 let withRuntime f =
     use dt = DataTarget.AttachToProcess(Process.GetCurrentProcess().Id, false)
+    dt.SetSymbolPath("https://msdl.microsoft.com/download/symbols")
     use runtime = dt.ClrVersions.[0].CreateRuntime()
     f runtime
     
