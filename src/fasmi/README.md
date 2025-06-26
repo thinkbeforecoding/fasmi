@@ -1,20 +1,4 @@
-<br />
-
-<p align="center">
-    <img src="https://raw.githubusercontent.com/d-edge/fasmi/main/img/fasmi.png" alt="fasmi logo" height="140">
-</p>
-
-<p align="center">
-    <img src="https://img.shields.io/nuget/v/fasmi" alt="version" /> 
-    <img src="https://img.shields.io/nuget/dt/fasmi" alt="download" /> 
-    <img src="https://img.shields.io/badge/license-MIT%20%2B%20BSD-green" alt="license" />
-</p>
-
-<br />
-
-Fasmi is a F# to Jitted ASM / IL disassembler as a dotnet tool
-
-![fasmi demo](img/fasmi-demo.gif)
+﻿Fasmi is a F# to Jitted ASM / IL disassembler as a dotnet tool
 
 # Getting Started
 
@@ -127,6 +111,7 @@ Copy the code in your profile file.
 
 For other shells it is possible to adapt the code.
 
+
 # Acknowledgment
 
 This tool is based on [Andrey Shchekin](https://github.com/ashmind) code for [https://sharplab.io/](https://sharplab.io/).
@@ -143,9 +128,7 @@ Help and feedback is always welcome and pull requests get accepted.
 * Please document your changes in the upcoming release notes in RELEASE_NOTES.md
 * PRs can only be approved and merged when all checks succeed (builds on Windows, MacOs and Linux)
 
-# License
 
-[MIT](./LICENSE)
 
 
 

@@ -17,8 +17,7 @@ type Command =
 
 let cmdLine =
     fargo {
-        let! source = arg "source" "The source fsx or dotnet assembly file" |> reqArg
-        and! watch = flag "watch" "w" "Run in watch mode"
+        let! watch = flag "watch" "w" "Run in watch mode"
         and! console = flag "console" "c" "Output to console"
         and! output = opt "output" "o" "output-path" "Specify the output file"
         and! hex = flag "hex" "x" "Show instruction opcodes"
@@ -32,6 +31,7 @@ let cmdLine =
                 (Completer.choices ["asm";"il"])
             |> optParse Disassembly.Language.parse
             |> defaultValue Asm
+        and! source = arg "source" "The source fsx or dotnet assembly file" |> reqArg
         return {
             Source = source
             Console = console
