@@ -3,8 +3,11 @@
 $ErrorActionPreference = "Stop" 
 $PSNativeCommandUseErrorActionPreference = $true 
 
-dotnet tool restore
+if (Test-Path "bin") {
+    Remove-Item bin -Recurse
+}
 
+dotnet tool restore
 
 dotnet test
 

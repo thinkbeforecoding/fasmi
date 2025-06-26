@@ -9,15 +9,14 @@
     <Authors>Jérémie Chassaing</Authors>
     <Company>D-Edge</Company>
     <Description>F# jit disassembler</Description>
-    <Copyright>Copyright (c) 2021 D-EDGE</Copyright>
-    <RepositoryUrl>https://github.com/d-edge/fasmi</RepositoryUrl>
+    <Copyright>Copyright (c) 2025 D-EDGE</Copyright>
+    <RepositoryUrl>https://codeberg.org/thinkbeforecoding/fasmi</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageType>DotNetCliTool</PackageType>
     <PackageIcon>fasmi.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/d-edge/fasmi</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/d-edge/fasmi</RepositoryUrl>
+    <PackageProjectUrl>https://codeberg.org/thinkbeforecoding/fasmi</PackageProjectUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.5.0</Version>
+    <Version>1.5.1</Version>
     <RollForward>Major</RollForward>
   </PropertyGroup>
   <ItemGroup>
@@ -25,9 +24,10 @@
     <Compile Include="Compilation.fs" />
     <Compile Include="Disassembly.fs" />
     <Compile Include="Program.fs" />
-    <None Include="..\..\img\fasmi.png" Pack="true" PackagePath="" />
     <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
     <None Include="paket.references" />
+    <None Include="..\..\img\fasmi.png" Pack="true" PackagePath="" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
